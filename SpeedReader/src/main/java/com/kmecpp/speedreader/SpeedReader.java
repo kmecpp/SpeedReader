@@ -1,38 +1,38 @@
 package com.kmecpp.speedreader;
 
-import org.lwjgl.glfw.GLFW;
-import org.lwjgl.glfw.GLFWErrorCallback;
-import org.lwjgl.opengl.GL11;
+import com.kmecpp.jlib.resource.ResourceLocation;
+import com.kmecpp.speedreader.desktop.Application;
+import com.kmecpp.speedreader.desktop.display.RectMode;
+import com.kmecpp.speedreader.desktop.display.Shapes;
 
-import com.kmecpp.speedreader.display.Window;
-
-public class SpeedReader {
+public class SpeedReader extends Application {
 
 	public static final String NAME = "SpeedReader";
 	public static final String VERSION = "1.0";
 
-	private Window window;
+	private static ResourceLocation images = new ResourceLocation("image");
 
-	public void init() {
-		GLFW.glfwSetErrorCallback(GLFWErrorCallback.createPrint(System.err));
-
-		if (GLFW.glfwInit() != GL11.GL_TRUE) {
-			throw new IllegalStateException("Unable to initialize GLFW");
-		}
-
-		window = new Window(NAME);
+	public SpeedReader() {
+		super(NAME);
 	}
 
-	public void loop() {
-		window.update();
+	public static ResourceLocation getImages() {
+		return images;
 	}
 
-	public void dispose() {
-		GLFW.glfwTerminate();
+	@Override
+	public void onInit() {
+		//		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		//		GL11.glLoadIdentity();
+		//		GL11.glOrtho(0, 800, 0, 600, 1, -1);
+		//		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 	}
 
-	public Window getWindow() {
-		return window;
+	@Override
+	public void onUpdate(double delta) {
+		clear();
+		RectMode.CENTER.use();
+		Shapes.rect(DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2, 100, 100);
 	}
 
 }
